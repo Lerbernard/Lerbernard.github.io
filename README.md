@@ -7,7 +7,7 @@ Personal site for Lee Bernard. Plain HTML, CSS and JavaScript, no build step.
 | `index.html` | The whole page: hero with a playable tic-tac-toe, projects, experience, research, about, contact |
 | `styles.css` | Theme (dark by default, light toggle), layout |
 | `script.js` | Theme toggle, rotating hero word, scroll reveals, live repo count, minimax tic-tac-toe |
-| `resume.pdf` | Linked from the "Résumé" button in the nav |
+| `Lee_Bernard_Resume.pdf` | Linked from the "Résumé" button in the nav |
 | `paper-ar-sustainability.pdf` | Accepted version of the IEEE ICIICE 2026 paper, with the IEEE copyright notice IEEE requires; the DOI link points to the published version |
 | `poster-cybersecurity-suncoast.pdf` | CIS 5377 cybersecurity poster (Eagle X), linked from Projects |
 
@@ -39,7 +39,7 @@ sure Source is "Deploy from a branch", branch `main`, folder `/ (root)`.
 
 ## Things to update over time
 
-- **Résumé**: drop a new `resume.pdf` in the folder and push.
+- **Résumé**: drop a new `Lee_Bernard_Resume.pdf` in the folder and push.
 - **Projects**: each project is an `<article class="project">` in `index.html`. Copy one, change the
   text, tags and links.
 - **Colours**: `--accent` (FGCU emerald green) for links and tags, `--accent-2` (FGCU cobalt blue) for the rotating hero word; both at the top of `styles.css`, with dark and light values.
