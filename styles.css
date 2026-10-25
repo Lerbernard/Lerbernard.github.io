@@ -294,7 +294,6 @@ main { position: relative; z-index: 1; }
   .about-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
-  .nav-links { display: none; }
   .brand-name { display: none; }
   .timeline::before { left: 5px; }
   .tl-item { grid-template-columns: 1fr; gap: 10px; padding-left: 28px; }
@@ -330,9 +329,39 @@ main { position: relative; z-index: 1; }
   .nav-actions .lbl-short { display: inline; }
   .nav-actions .btn-small { padding: 9px 12px; }
 }
+/* top bar: section links become a dropdown list below 960px */
+@media (max-width: 960px) {
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 2px;
+    padding: 8px var(--gutter) 14px; background: color-mix(in srgb, var(--bg) 96%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+  }
+  .nav.is-open .nav-links { display: flex; animation: menu-in 0.22s ease both; }
+  .nav-links a { padding: 12px 14px; font-size: 16px; border-radius: 12px; }
+  .nav .menu-toggle { display: grid; margin-left: auto; }
+}
 @media (max-width: 720px) {
+  .nav-actions { gap: 6px; }
+  .nav-socials { gap: 4px; padding-right: 4px; margin-right: 0; }
+  .nav-icon, .theme-toggle { width: 34px; height: 34px; }
   .resume-dialog { width: 100vw; height: 100dvh; max-width: 100vw; border-radius: 0; margin: 0; }
   .resume-dialog-body { overflow-y: auto; background: var(--surface-2); }
   .resume-pdf { display: none; }
   .resume-img { display: block; }
+}
+
+/* ---------- Menu button (small screens) ---------- */
+.menu-toggle { display: none; }
+.menu-bars { position: relative; width: 16px; height: 12px; display: block; }
+.menu-bars i { position: absolute; left: 0; right: 0; height: 2px; border-radius: 2px; background: currentColor; transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease; }
+.menu-bars i:nth-child(1) { top: 0; }
+.menu-bars i:nth-child(2) { top: 5px; }
+.menu-bars i:nth-child(3) { top: 10px; }
+.nav.is-open .menu-bars i:nth-child(1) { top: 5px; transform: rotate(45deg); }
+.nav.is-open .menu-bars i:nth-child(2) { opacity: 0; }
+.nav.is-open .menu-bars i:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 400px) {
+  .nav-actions .lbl-short { display: none; }
 }

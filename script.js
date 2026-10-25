@@ -28,6 +28,19 @@
   function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode, ignore */ } }
 
+  /* ---------- Menu on small screens ---------- */
+  const nav = document.querySelector(".nav");
+  const menuBtn = document.getElementById("menuToggle");
+  function setMenu(open) {
+    nav.classList.toggle("is-open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  menuBtn.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
+  document.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("click", (e) => { if (!nav.contains(e.target)) setMenu(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+
   /* ---------- Cursor glow ---------- */
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduceMotion && matchMedia("(pointer: fine)").matches) {
