@@ -204,6 +204,10 @@ main { position: relative; z-index: 1; }
   box-shadow: var(--shadow); transition: transform 0.25s ease, background 0.25s ease;
 }
 .project:hover { transform: translateY(-3px); background: color-mix(in srgb, var(--surface) 92%, var(--accent-soft)); }
+.project { overflow: hidden; }
+.project-shot { display: block; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.project-shot img { display: block; width: 100%; height: auto; max-height: 340px; object-fit: cover; object-position: top center; transition: opacity .2s; }
+.project-shot:hover img { opacity: .92; }
 .project-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .project.featured .project-body { padding: clamp(24px, 3vw, 36px); }
 .project-top { display: flex; gap: 6px; flex-wrap: wrap; }
