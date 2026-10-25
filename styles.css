@@ -177,15 +177,15 @@ main { position: relative; z-index: 1; }
   display: grid; place-items: center; transition: transform 0.15s ease, background 0.2s;
 }
 .cell:hover:not(:disabled):not(.x):not(.o) { transform: scale(1.03); background: color-mix(in srgb, var(--surface-2) 60%, var(--accent-soft)); }
-.cell.x { color: var(--accent); }
-.cell.o { color: var(--accent-2); }
+.cell.x { color: var(--accent-2); }
+.cell.o { color: var(--accent); }
 .cell.pop { animation: pop 0.3s cubic-bezier(.2,.9,.3,1.3); }
 .cell.win { background: var(--accent-soft); }
 .cell:disabled { cursor: default; }
 @keyframes pop { from { transform: scale(0.6); } to { transform: scale(1); } }
 .game-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; }
 .game-status { margin: 0; font-size: 14px; color: var(--text-2); flex: 1 1 100%; }
-.game-status .x { color: var(--accent); } .game-status .o { color: var(--accent-2); }
+.game-status .x { color: var(--accent-2); } .game-status .o { color: var(--accent); }
 .game-score { display: flex; gap: 8px; font-size: 12.5px; color: var(--muted); }
 .game-score span { background: var(--surface-2); padding: 5px 10px; border-radius: 999px; }
 .game-score b { color: var(--text); margin-left: 4px; }

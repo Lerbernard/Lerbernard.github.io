@@ -58,7 +58,7 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 
   /* ---------- Tic-Tac-Toe vs minimax ---------- */
-  const HUMAN = "X", AI = "O";
+  const HUMAN = "O", AI = "X";
   const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
   const cells = Array.from(document.querySelectorAll(".cell"));
   const status = document.getElementById("gameStatus");
@@ -80,7 +80,7 @@
     board = Array(9).fill(null);
     over = false; busy = false;
     cells.forEach((c) => { c.textContent = ""; c.className = "cell"; c.disabled = false; });
-    say(`You're <b class="x">X</b>. Your move.`);
+    say(`You're <b class="o">O</b>. Your move.`);
   }
 
   function play(i) {
