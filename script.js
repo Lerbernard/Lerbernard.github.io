@@ -57,6 +57,17 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  /* ---------- Resume viewer: PDF on desktop, image on phones ---------- */
+  const resumeDialog = document.getElementById("resumeDialog");
+  const resumeFrame = resumeDialog.querySelector(".resume-pdf");
+  document.getElementById("viewResume").addEventListener("click", () => {
+    if (!resumeFrame.src && window.matchMedia("(min-width: 721px)").matches) resumeFrame.src = resumeFrame.dataset.src;
+    if (typeof resumeDialog.showModal === "function") resumeDialog.showModal();
+    else window.open("Lee_Bernard_Resume.pdf", "_blank", "noopener");
+  });
+  document.getElementById("closeResume").addEventListener("click", () => resumeDialog.close());
+  resumeDialog.addEventListener("click", (e) => { if (e.target === resumeDialog) resumeDialog.close(); });
+
   /* ---------- Tic-Tac-Toe vs minimax ---------- */
   const HUMAN = "O", AI = "X";
   const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
