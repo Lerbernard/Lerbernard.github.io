@@ -11,8 +11,18 @@
 
   toggle.addEventListener("click", () => {
     const next = root.dataset.theme === "light" ? "dark" : "light";
-    root.dataset.theme = next;
-    safeSet("theme", next);
+    const apply = () => { root.dataset.theme = next; safeSet("theme", next); };
+    if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return apply();
+    // grow the new theme out of the toggle as a circle
+    const r = toggle.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(() => {
+      root.animate(
+        { clipPath: ["circle(0px at " + x + "px " + y + "px)", "circle(" + end + "px at " + x + "px " + y + "px)"] },
+        { duration: 600, easing: "cubic-bezier(0.32, 0.72, 0.2, 1)", pseudoElement: "::view-transition-new(root)" }
+      );
+    });
   });
 
   function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -76,10 +86,23 @@
   const score = { you: 0, draw: 0, ai: 0 };
   let board, over, level = "easy", busy = false;
 
+  /* Easy/Hard toggle: one pill slides between the two buttons */
+  const seg = document.querySelector(".seg");
+  const thumb = seg.querySelector(".seg-thumb");
+  function moveThumb(btn) {
+    thumb.style.width = btn.offsetWidth + "px";
+    thumb.style.transform = "translateX(" + (btn.offsetLeft - 4) + "px)";
+  }
+  moveThumb(seg.querySelector(".seg-btn.is-active"));
+  requestAnimationFrame(() => seg.classList.add("is-ready"));   // no slide on first paint
+  window.addEventListener("resize", () => moveThumb(seg.querySelector(".seg-btn.is-active")));
+
   document.querySelectorAll(".seg-btn").forEach((b) => {
     b.addEventListener("click", () => {
+      if (b.classList.contains("is-active")) return;
       document.querySelectorAll(".seg-btn").forEach((x) => x.classList.remove("is-active"));
       b.classList.add("is-active");
+      moveThumb(b);
       level = b.dataset.level;
       reset();
     });

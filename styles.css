@@ -95,14 +95,20 @@ h3 { font-size: clamp(20px, 2.2vw, 24px); font-weight: 700; }
 }
 .nav-links a:hover { background: var(--surface-2); color: var(--text); }
 .nav-actions { display: flex; align-items: center; gap: 8px; }
-.theme-toggle {
-  width: 36px; height: 36px; border: 0; border-radius: 50%; display: grid; place-items: center;
+.theme-toggle, .nav-icon {
+  width: 36px; height: 36px; border: 0; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
   background: var(--surface-2); color: var(--text-2); transition: background 0.2s, color 0.2s;
 }
-.theme-toggle:hover { color: var(--text); background: color-mix(in srgb, var(--surface-2) 70%, var(--accent-soft)); }
-.theme-toggle .icon-moon { display: none; }
-:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
-:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+.theme-toggle:hover, .nav-icon:hover { color: var(--text); background: color-mix(in srgb, var(--surface-2) 70%, var(--accent-soft)); }
+/* sun and moon sit on top of each other and spin/fade into one another */
+.theme-toggle { position: relative; overflow: hidden; }
+.theme-toggle svg { position: absolute; inset: 0; margin: auto; transition: transform 0.5s cubic-bezier(0.32, 0.72, 0.2, 1), opacity 0.3s ease; }
+.theme-toggle .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+:root[data-theme="light"] .theme-toggle .icon-sun { opacity: 0; transform: rotate(90deg) scale(0.4); }
+:root[data-theme="light"] .theme-toggle .icon-moon { opacity: 1; transform: none; }
+/* the new theme spreads out in a circle from the toggle (see script.js) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.nav-socials { display: flex; gap: 6px; padding-right: 6px; margin-right: 2px; border-right: 1px solid var(--line); }
 
 /* ---------- Buttons & chips ---------- */
 .btn {
@@ -167,9 +173,13 @@ main { position: relative; z-index: 1; }
 .game-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
 .game-kicker { margin: 0 0 4px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .game-title { font-size: 19px; font-weight: 700; }
-.seg { display: inline-flex; background: var(--surface-2); padding: 4px; border-radius: 999px; flex-shrink: 0; }
-.seg-btn { border: 0; background: transparent; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: var(--text-2); transition: background 0.2s, color 0.2s; }
-.seg-btn.is-active { background: var(--text); color: var(--bg); }
+.seg { position: relative; isolation: isolate; display: inline-flex; background: var(--surface-2); padding: 4px; border-radius: 999px; flex-shrink: 0; }
+.seg-thumb { position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 4px; width: 0; border-radius: 999px; background: var(--text); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+.seg.is-ready .seg-thumb { transition: transform 0.38s cubic-bezier(0.32, 0.72, 0.2, 1), width 0.38s cubic-bezier(0.32, 0.72, 0.2, 1); }
+.seg-btn { border: 0; background: transparent; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: var(--text-2); transition: color 0.3s ease; }
+.seg-btn:not(.is-active):hover { color: var(--text); }
+.seg-btn.is-active { color: var(--bg); }
+@media (prefers-reduced-motion: reduce) { .seg.is-ready .seg-thumb { transition: none; } }
 .board { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px; aspect-ratio: 1; max-width: 340px; margin: 0 auto; }
 .cell {
   border: 0; border-radius: 14px; background: var(--surface-2); min-height: 0; min-width: 0; padding: 0; line-height: 1;
@@ -313,10 +323,14 @@ main { position: relative; z-index: 1; }
 .resume-dialog-body { flex: 1; min-height: 0; background: #525659; }
 .resume-pdf { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
 .resume-img { display: none; width: 100%; height: auto; }
-@media (max-width: 720px) {
-  .lbl-long { display: none; }
-  .lbl-short { display: inline; }
+.btn { white-space: nowrap; }
+/* medium screens: short labels so the top bar never wraps */
+@media (max-width: 1180px) {
+  .nav-actions .lbl-long { display: none; }
+  .nav-actions .lbl-short { display: inline; }
   .nav-actions .btn-small { padding: 9px 12px; }
+}
+@media (max-width: 720px) {
   .resume-dialog { width: 100vw; height: 100dvh; max-width: 100vw; border-radius: 0; margin: 0; }
   .resume-dialog-body { overflow-y: auto; background: var(--surface-2); }
   .resume-pdf { display: none; }
