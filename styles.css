@@ -248,7 +248,7 @@ main { position: relative; z-index: 1; }
 /* ---------- About ---------- */
 .about-grid { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
 .about-photo img { width: 100%; max-width: 360px; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
-.about-copy p { color: var(--text-2); }
+.about-copy p:not(.eyebrow) { color: var(--text-2); }
 .about-copy h2 { margin-bottom: 16px; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
 .fact { background: var(--surface); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
@@ -262,7 +262,7 @@ main { position: relative; z-index: 1; }
 /* ---------- Contact ---------- */
 .contact-card { text-align: center; padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 60px); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
 .contact-card h2 { font-size: clamp(32px, 4.5vw, 52px); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 14px; }
-.contact-card p { color: var(--text-2); max-width: 520px; margin: 0 auto 28px; }
+.contact-card p:not(.eyebrow) { color: var(--text-2); max-width: 520px; margin: 0 auto 28px; }
 .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
 
 /* ---------- Footer ---------- */
