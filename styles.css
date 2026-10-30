@@ -257,7 +257,7 @@ main { position: relative; z-index: 1; }
 
 /* ---------- About ---------- */
 .about-grid { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
-.about-photo img { width: 100%; max-width: 360px; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
+.about-photo img { width: 100%; height: auto; max-width: 360px; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
 .about-copy p:not(.eyebrow) { color: var(--text-2); }
 .about-copy h2 { margin-bottom: 16px; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
